@@ -63,34 +63,53 @@ function createRecommendation() {
       
       alert(`After the if clause: ${acresBox.value}`)
       
-      if (monthsBox.value <= 10) { // 10+ months of farming per year
+      if (monthsBox.value >= 10) { // 10+ months of farming per year
          messageHeadElement.innerHTML = "E3250";
          messageElement.innerHTML = "A workhorse for a small farm or a big backyard. A medium- to heavy-duty tractor that can haul whatever you throw at it year-round.";
+         
+         console.log("the month value is: " + monthsBox.value)
+         alert(`the months are: ${monthsBox.value}, 10 or more`)
+
       } else { // 9 or fewer months per year
          messageHeadElement.innerHTML = "E2600";
-         messageElement.innerHTML = "Perfect for a small farm, or just a big backyard. A light- to medium-duty tractor that can make short work of most any chore.";             
+         messageElement.innerHTML = "Perfect for a small farm, or just a big backyard. A light- to medium-duty tractor that can make short work of most any chore."; 
+         
+         alert(`the months are: ${monthsBox.value}, 9 or less`)
+
       }
    } else { // more than 5000 acres
+
+      alert("After the second clause: " + acresBox.value)
+
       if (monthsBox.value <= 9) { // 9 or fewer months per year, no crop test needed
       
-         alert("After the second clause: " + acresBox.value)
-      
+         alert(`the months are for 5000: ${monthsBox.value}, 9 or less`)
+
          messageHeadElement.innerHTML = "W1205";
          messageElement.innerHTML = "Can't be beat for the general tasks of a large farm. Medium- to heavy-duty muscle that's there then you need it.";
       } else { // 10+ months of farming per year
+
+         alert(`the months are: ${monthsBox.value}, 10 or more`)
+
          if (document.getElementById("wheat").checked || document.getElementById("corn").checked && document.getElementById("soy").checked) {
             messageHeadElement.innerHTML = "W2500";
             messageElement.innerHTML = "Our heavy-duty tractor designed especially for the needs of wheat, corn, and soy farmers. A reliable piece of equipment that you can turn to all year long.";
+     
+            alert(`this`)
+         
          } else {
             messageHeadElement.innerHTML = "W2550";
             messageElement.innerHTML = "Our heavy-duty tractor for general use. A reliable piece of equipment that you can turn to all year long.";
+         
+            alert(`that`)
+         
          }
       }
    }
    if (document.getElementById("E85").checked) { // add suffix to model name based on fuel choice
       messageHeadElement.innerHTML += "E";
    } else if (document.getElementById("biodiesel").checked) {
-      messageHeadElement.innerHTML = "B";
+      messageHeadElement.innerHTML += "B";
    } else {
       messageHeadElement.innerHTML += "D";  
    }
