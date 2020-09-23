@@ -1,107 +1,199 @@
-/*    C201 - Back-end Programming
- *    Exercise 01_04_01
+Project 01_04_01
+In this project, you will continue working with the tuba.js and tractor.html files from the class exercise. You will add error handling to the verifyCrops() function so users receive an error message if they remove checkmarks from all the crop boxes.
+  
 
+
+The code that you will create here is not free of bugs. You will debug the code before submitting for this project. Make sure to add documentation with comments to all of the code you enter, to indicate that you understand it and to explain what it does.
+Copy all of the completed files from Exercise 01_01_04 into a Project 01_01_04 folder; this will contain all of the files you will zip up and submit. Open all of the necessary files in your IDE and replace Exercise 01_04_01 with Project 01_04_01 in the comments sections.
+
+Scroll down to the verifyCrops() function and replace the testFormCompleteness(); call with the following code:
+    try {
+        for (var i = 0; i < 7; i++) {
+            if (cropsFieldset.getElementsByTagName("input")[i].checked) {
+                cropscomplete = true;
+                messageElement.innerHTML = "";
+                testFormCompleteness();
+                i = 8;
+            }
+        }
+        if (i === 7) {
+            throw "Please select at least one crop.";
+        }
+    }
+
+Do a browser test at this point, and take a look at the Console. It should indicate that there is a bug. Your try clause is missing a catch clause.
+Below the try statement, add the following catch statement:
+    catch(message) {
+        cropsComplete = false;
+        messageHeadElement.innerHTML = "";
+        messageElement.innerHTML = message;
+    }
+Scroll to the top of the script, and change the values for the variables acresComplete, cropsComplete, and monthsComplete to false. The value for fuelComplete should remain true.
+Run a browser test. Test the crops code by selecting some of them, then deselecting all of them. At this point, you should be getting an error message when no crops are checked. If not, you have a bug in the code you entered and it will need to be fixed before performing any further testing of the form.
+Now let’s do a complete test of all of the form fields. You should notice that you never get a tractor recommendation. Use the techniques you learned in this Exercise to find the bugs.
+Hint: even if you do get a recommendation, there may still be another bug. If you turn all crops off, then select one again, you may not get a recommendation. If this is the case, you still have another bug to find.
+Submit a .zip of all of your files to Project 01_04_01.
+
+
+/*    C201 - Back-end Programming
+ *    Project 01_04_01
+ 
  *    Tuba Farm Equipment
  *    Variables and functions
  *    
  *    Author: Jorge Collazo
  *    Date:   9-16-20
-
+ 
  *    Filename: tuba.js
  */
-
+ 
 /* global variables tracking status of each form section */
-var acresComplete = true;
-var cropsComplete = true;
-var monthsComplete = true;
+var acresComplete = false;
+var cropsComplete = false;
+var monthsComplete = false;
 var fuelComplete = true;
-
+ 
+ 
 /* global variables referencing sidebar h2 and p elements */
 var messageHeadElement = document.getElementById("messageHead");
 var messageElement = document.getElementById("message");
-
+ 
 /* global variables referencing fieldset elements */
 var acresFieldset = document.getElementsByTagName("fieldset")[0];
 var cropsFieldset = document.getElementsByTagName("fieldset")[1];
 var monthsFieldset = document.getElementsByTagName("fieldset")[2];
 var fuelFieldset = document.getElementsByTagName("fieldset")[3];
-
+ 
 /* global variables referencing text input elements */
 var monthsBox = document.forms[0].months;
 var acresBox = document.forms[0].acres;
-
+ 
 /* verify acres text box entry is a positive number */
 function verifyAcres() {
    testFormCompleteness();      
 }
-
+ 
 /* verify at least one crops checkbox is checked */
 function verifyCrops() {
    testFormCompleteness();
+   try {
+      for (var i = 0; i &lt; 7, i++) {
+      if (cropsFieldset.getElementsByTagName("input")[i].checked) {
+      cropscomplete = true;
+      messageElement.innerHTML = "";
+      testFormCompleteness();
+      i = 8;
+      }
+      }
+      if (i === 7) {
+      throw "Please select at least one crop.";
+      }
+   }
+   catch(message) {
+      cropsComplete = false;
+      messageHeadElement.innerHTML = "";
+      messageElement.innerHTML = message;
+      }
 }
-
+ 
 /* verify months text box entry is between 1 and 12 */
 function verifyMonths() {
    testFormCompleteness();
+   try {
+      for (var i = 0; i &lt; 7, i++) {
+      if (cropsFieldset.getElementsByTagName("input")[i].checked) {
+      monthsComplete = true;
+      messageElement.innerHTML = "";
+      testFormCompleteness();
+      i = 8;
+      }
+      }
+      if (i === 7) {
+      throw "Months didn't works.";
+      }
+   }
+   catch(message) {
+      monthsComplete = false;
+      messageHeadElement.innerHTML = "";
+      messageElement.innerHTML = message;
+      }
 }
-
+ 
 /* verify that a fuel option button is selected */
 function verifyFuel() {
    testFormCompleteness();
+   try {
+      for (var i = 0; i &lt; 7, i++) {
+      if (cropsFieldset.getElementsByTagName("input")[i].checked) {
+      fuelComplete = true;
+      messageElement.innerHTML = "";
+      testFormCompleteness();
+      i = 8;
+      }
+      }
+      if (i === 7) {
+      throw "fuel didn't work.";
+      }
+   }
+   catch(message) {
+      fuelComplete = false;
+      messageHeadElement.innerHTML = "";
+      messageElement.innerHTML = message;
+      }
 }
-
+ 
 /* check if all four form sections are completed */
 function testFormCompleteness() {
    if (acresComplete && cropsComplete && monthsComplete && fuelComplete) {
       createRecommendation();
    }
 }
-
+ 
 /* generate tractor recommendation based on user selections */
 function createRecommendation() {
    if (acresBox.value <= 5000) { // 5000 acres or less, no crop test needed
       
-      alert(`After the if clause: ${acresBox.value}`)
+ 
       
       if (monthsBox.value >= 10) { // 10+ months of farming per year
          messageHeadElement.innerHTML = "E3250";
          messageElement.innerHTML = "A workhorse for a small farm or a big backyard. A medium- to heavy-duty tractor that can haul whatever you throw at it year-round.";
          
          console.log("the month value is: " + monthsBox.value)
-         alert(`the months are: ${monthsBox.value}, 10 or more`)
-
+ 
+ 
       } else { // 9 or fewer months per year
          messageHeadElement.innerHTML = "E2600";
          messageElement.innerHTML = "Perfect for a small farm, or just a big backyard. A light- to medium-duty tractor that can make short work of most any chore."; 
          
-         alert(`the months are: ${monthsBox.value}, 9 or less`)
-
+ 
+ 
       }
    } else { // more than 5000 acres
-
-      alert("After the second clause: " + acresBox.value)
-
+ 
+ 
+ 
       if (monthsBox.value <= 9) { // 9 or fewer months per year, no crop test needed
       
-         alert(`the months are for 5000: ${monthsBox.value}, 9 or less`)
-
+ 
+ 
          messageHeadElement.innerHTML = "W1205";
          messageElement.innerHTML = "Can't be beat for the general tasks of a large farm. Medium- to heavy-duty muscle that's there then you need it.";
       } else { // 10+ months of farming per year
-
-         alert(`the months are: ${monthsBox.value}, 10 or more`)
-
+ 
+ 
+ 
          if (document.getElementById("wheat").checked || document.getElementById("corn").checked && document.getElementById("soy").checked) {
             messageHeadElement.innerHTML = "W2500";
             messageElement.innerHTML = "Our heavy-duty tractor designed especially for the needs of wheat, corn, and soy farmers. A reliable piece of equipment that you can turn to all year long.";
      
-            alert(`this`)
+ 
          
          } else {
             messageHeadElement.innerHTML = "W2550";
             messageElement.innerHTML = "Our heavy-duty tractor for general use. A reliable piece of equipment that you can turn to all year long.";
          
-            alert(`that`)
+ 
          
          }
       }
@@ -114,12 +206,12 @@ function createRecommendation() {
       messageHeadElement.innerHTML += "D";  
    }
 }
-
+ 
 /* create event listeners for all input elements */
 function createEventListeners() {
    acresBox.value = ""; // clear acres text box on page load
    monthsBox.value = ""; // clear months text box on page load
-
+ 
    if (acresBox.addEventListener) {
      acresBox.addEventListener("input", verifyAcres, false); 
    } else if (acresBox.attachEvent)  {
@@ -142,7 +234,7 @@ function createEventListeners() {
    } else if (monthsBox.attachEvent)  {
      monthsBox.attachEvent("onchange", verifyMonths);
    }
-
+ 
    var fuelBox;
    for (var i = 0; i < 3; i++) {
       fuelBox = fuelFieldset.getElementsByTagName("input")[i];
@@ -154,10 +246,11 @@ function createEventListeners() {
       }
    }
 }
-
+ 
 /* create event listeners when page finishes loading */
 if (window.addEventListener) {
    window.addEventListener("load", createEventListeners, false);
 } else if (window.attachEvent) {
    window.attachEvent("onload", createEventListeners);
 }
+
